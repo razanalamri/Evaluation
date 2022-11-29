@@ -13,6 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 import java.util.logging.Level;
@@ -23,7 +24,7 @@ public class Test {
 	
 	public static void main(String[] args) throws IOException, InterruptedException{
 		
-		boolean isExit;
+		 List<String> listWord=new ArrayList<>();
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
@@ -76,7 +77,8 @@ public class Test {
    	  
 	  System.out.println("Enter word you want to search:");
 	  String SearchWord= scanner1.next();
-  	
+	  listWord.add(SearchWord);
+	  
    	 try {
    		fileR=new FileReader(data);
 		  BufferedReader bufferR=new BufferedReader(fileR);
