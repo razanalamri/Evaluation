@@ -24,6 +24,7 @@ public class Test {
 	
 	public static void main(String[] args) throws IOException, InterruptedException{
 		
+		HashSet<String> set = new HashSet<>();
 		 List<String> listWord=new ArrayList<>();
 
         HttpClient client = HttpClient.newHttpClient();
@@ -74,10 +75,15 @@ public class Test {
    	  FileReader fileR=null;
    	  Scanner scanner1=new Scanner(System.in);
    	  String string;
-   	  
+   
 	  System.out.println("Enter word you want to search:");
 	  String SearchWord= scanner1.next();
 	  listWord.add(SearchWord);
+	  System.out.println("Enter word you want to search:");
+	  String SearchWord2= scanner1.next();
+	  listWord.add(SearchWord2);
+   	 
+   	 
 	  
    	 try {
    		fileR=new FileReader(data);
@@ -85,13 +91,15 @@ public class Test {
 		  
 		  while((string=bufferR.readLine())!=null) {
 			  if(string.contains(SearchWord)) {
-				  System.out.println("Yes "+SearchWord+" is in the file");
-			  }	
+				  for(String word:listWord) {
+           		   if(set.add(word)==true) {
+				  System.out.println("Yes, "+word+" is in the file");
+			  	}}}
 			
-		
+
 			  else {
-				  System.out.println("No "+SearchWord+" is Not in the file");
-				  
+				  System.out.println("No, "+SearchWord+" is Not in the file");
+				  System.out.println("No, "+SearchWord2+" is Not in the file");
 			 }}}
            			  
 
