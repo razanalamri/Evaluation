@@ -141,6 +141,11 @@ public class Test {
      	    String wordToSearch = scannerObject.next();
      	    if(textFromFile.contains(wordToSearch)){
      	        System.out.println(wordToSearch + " found!!");
+     	       Path temp =  Files.copy(Paths.get("C:\\Users\\user012\\eclipse-workspace\\Evaluation\\test.pdf"),Paths.get("C:\\Users\\user012\\Desktop\\Search\\test2.pdf"));
+				 
+			      if(temp != null) {
+			         System.out.println("File moved successfully.");
+			 }
      	    } else {
      	        System.out.println(wordToSearch + " Not found");
      	    }
@@ -148,6 +153,8 @@ public class Test {
 
      	}
         		 
+         	  
+
 	
 }}
 
