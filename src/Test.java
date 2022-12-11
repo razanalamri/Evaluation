@@ -11,6 +11,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -20,6 +21,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.naming.directory.SearchResult;
+
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
 
 
 
@@ -74,10 +78,15 @@ public class Test {
 
      	
         	  
-          	System.out.println("Enter word you want to search:");
-       	  String SearchWord= scanner1.next();
-       	  listWord.add(SearchWord);
-
+          System.out.println("Enter word you want to search:");
+          int count=0;
+          while(scanner1.hasNext()) {
+          String SearchWord= scanner1.next(); 
+          if(SearchWord.equalsIgnoreCase("Exit")) {
+        	  break;
+          }
+       	 
+          
 
 
 
@@ -88,6 +97,7 @@ public class Test {
 
        		  while((string=bufferR.readLine())!=null) {
        			  if(string.contains(SearchWord)) {
+       				 listWord.add(SearchWord);
        			  for(String word:listWord) {
                		   if(set.add(word)==true) {
      				  System.out.println("Yes, "+word+" is in the file");
@@ -112,58 +122,32 @@ public class Test {
      				  }
      				  finally {
      					  fileR.close();
-     				  }
+     				  }}
        		 break;
        		 
        		 
        		
        	 case 2: 
        		 
+       	
+       		 System.out.println("Enter File You Want to Use");
+     	    Scanner scanner = new Scanner(System.in);
+     	    String fileToUse = scanner.next();
+     	    PDDocument pdDocument = PDDocument.load(new File(System.getProperty("user.dir") + "\\" + fileToUse + ".pdf"));
+     	    PDFTextStripper textStripper = new PDFTextStripper();
+     	    String textFromFile = textStripper.getText(pdDocument);
+     	    System.out.println("Enter Word You Want to Search\n");
+     	    Scanner scannerObject = new Scanner(System.in);
+     	    String wordToSearch = scannerObject.next();
+     	    if(textFromFile.contains(wordToSearch)){
+     	        System.out.println(wordToSearch + " found!!");
+     	    } else {
+     	        System.out.println(wordToSearch + " Not found");
+     	    }
+     	    pdDocument.close();
 
-      	
+     	}
         		 
-         	  
-           	System.out.println("Enter word you want to search:");
-        	  String SearchWord2= scanner1.next();
-        	  listWord.add(SearchWord2);
-
-
-
-
-           	 try {
-           		File data=new File("Evalution.pdf");
-           		fileR=new FileReader(data);
-        		  BufferedReader bufferR=new BufferedReader(fileR);
-
-        		  while((string=bufferR.readLine())!=null) {
-        			  if(string.contains(SearchWord2)) {
-        			  for(String word:listWord) {
-                		   if(set.add(word)==true) {
-      				  System.out.println("Yes, "+word+" is in the file");
-      			  	}}}
-        		  
-        		  else {
-      			
-
-      			  System.out.println("No, "+SearchWord2+" is Not in the file");
-      			
-      		 }}}
-
-
-      		
-      	 
-      				  
-      			 
-      			     catch(FileNotFoundException ex) {
-      					  Logger.getLogger(Test.class.getName()).log(Level.SEVERE,null,ex);
-      				     }catch(IOException ex) {
-      					  Logger.getLogger(Test.class.getName()).log(Level.SEVERE,null,ex);
-      				  }
-      				  finally {
-      					  fileR.close();
-      				  }
-
 	
-	
-}}}
+}}
 
